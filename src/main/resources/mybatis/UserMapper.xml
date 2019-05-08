@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kv.demo.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.kv.demo.entity.User">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="age" jdbcType="INTEGER" property="age" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <select id="queryUser" resultMap="BaseResultMap">
+        select * from user where id=#{id};
+    </select>
+
+    <select id="queryUserByLock" resultMap="BaseResultMap">
+        select * from user where id=#{id} for update;
+    </select>
+
+    <select id="showUsers" resultMap="BaseResultMap">
+        select  * from user
+    </select>
+
+    <update id="updateAge" parameterType="com.kv.demo.entity.User">
+        update user set age=#{age} where id=#{id}
+    </update>
+
+    <update id="updateAgeByVersion">
+        update user set age=#{age},version = version + 1 where id=#{id} and version=#{version}
+    </update>
+</mapper>
