@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 public class UserTest {
     public static void main(String[] args) {
         CountDownLatch latch = new CountDownLatch(1);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             AnaUser anaUser = new AnaUser(latch);
             anaUser.start();
         }
@@ -35,20 +35,10 @@ public class UserTest {
         public void requestNow() {
             RestTemplate restTemplate = new RestTemplate();
 //            Integer result = restTemplate.getForObject("http://localhost:8080/update/user/1",Integer.class);
-            Integer result = restTemplate.getForObject("http://localhost:8080/update/userbyversion/3",Integer.class);
+//            Integer result = restTemplate.getForObject("http://localhost:8080/update/userbyversion/3",Integer.class);
+            Integer result = restTemplate.getForObject("http://localhost:8080/update/useAop/5",Integer.class);
             System.out.println("now is:"+result);
         }
 
-        public void requestVersion() {
-            RestTemplate restTemplate = new RestTemplate();
-
-            for(int i = 0; i < 3; i++) {
-                new Thread(() -> {
-                    Integer result = restTemplate.getForObject("http://localhost:8080/update/userbyversion/3",Integer.class);
-                    System.out.println("-------------" + result);
-                }
-                ).start();
-            }
-        }
     }
 }

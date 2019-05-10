@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kv.demo.dao.ContentMapper">
+    <resultMap id="BaseResultMap" type="com.kv.demo.entity.Content">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="tdesc" jdbcType="VARCHAR" property="tdesc" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <insert id="insert" keyProperty="id" parameterType="com.kv.demo.entity.Content" useGeneratedKeys="true">
+    insert into content (title, tdesc)
+    values (#{title,jdbcType=VARCHAR}, #{tdesc,jdbcType=VARCHAR})
+  </insert>
+</mapper>
